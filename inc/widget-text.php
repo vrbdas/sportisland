@@ -12,7 +12,9 @@ class SI_Widget_Text extends WP_Widget {
         );
     }
 
-    public function form($instance)
+    public function form($instance) 
+    // функция отвечает за форму заполнения данных виджета в админке. тег form и кнопка сохранить добавляются автоматически
+    // instance это массив с данными из формы, который записан в базе данных, нужно добавить как параметр функции для того, чтобы они появились в форме при обновлении страницы
     {
 ?>
     <p>
@@ -20,18 +22,18 @@ class SI_Widget_Text extends WP_Widget {
         <input 
             id="<?= $this->get_field_id('id-text') ?>" 
             type="text" 
-            name="<?= $this->get_field_name('text') ?>" 
-            value="<?= $instance['text'] ?>">
+            name="<?= $this->get_field_name('text') // text это будет ключ в массиве instance с данными из input?>" 
+            value="<?= $instance['text'] ?>"
+        >
     </p>
 <?php
     }
 
-    public function widget($args, $instance)
-    {
+    public function widget($args, $instance) { // функция отвечает за вывод данных на страницу
         echo $instance['text'];
     }
 
-    public function update($new_instance, $old_instance)
+    public function update($new_instance, $old_instance) // отвечает за сохранение данных, можно прописать какие-то проверки
     {
         return $new_instance;
     }

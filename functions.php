@@ -4,7 +4,9 @@ $widgets = [
     'widget-text.php',
     'widget-contacts.php',
     'widget-email.php',
-    'widget-social.php'
+    'widget-social.php',
+    'widget-iframe.php',
+    'widget-info.php',
 ];
 
 foreach ($widgets as $item) {
@@ -78,6 +80,8 @@ function si_register() {
     register_widget('si_widget_contacts');
     register_widget('si_widget_email');
     register_widget('si_widget_social');
+    register_widget('si_widget_iframe');
+    register_widget('si_widget_info');
 }
 
 function _si_assets_path($path) {
