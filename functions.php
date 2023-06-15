@@ -3,7 +3,6 @@
 $widgets = [
     'widget-text.php',
     'widget-contacts.php',
-    'widget-email.php',
     'widget-social.php',
     'widget-iframe.php',
     'widget-info.php',
@@ -17,7 +16,10 @@ add_action('after_setup_theme', 'si_setup');
 add_action('wp_enqueue_scripts', 'si_scripts');
 add_action('widgets_init', 'si_register');
 
+add_shortcode('si-paste-link', 'si_paste_link'); // добавляет шорткод [si-paste-link], когда его находит в тексте, вызывает функцию si_paste_link
+
 // add_filter('show_admin_bar', '__return_false'); // убирает верхнюю панель администратора на странице
+add_filter('si_widget_text_filter', 'do_shortcode'); // фильтр c именем для si_widget_text_filter, вызывает встроенную функцию do_shortcode, которая добавляет поддержку шорткодов в тексте
 
 function si_setup() {
     register_nav_menu('menu-header', 'Меню в шапке'); // первый аргумент это theme_location
@@ -78,10 +80,34 @@ function si_register() {
     ]);
     register_widget('si_widget_text');
     register_widget('si_widget_contacts');
-    register_widget('si_widget_email');
     register_widget('si_widget_social');
     register_widget('si_widget_iframe');
     register_widget('si_widget_info');
+}
+
+function si_paste_link($atts) {
+    $params = shortcode_atts([
+        'link' => '',
+        'text' => '',
+        'type' => 'link',
+    ], $atts);
+    $params['text'] = $params['text'] ? $params['text'] : $params['link'];
+    if ($params['link']) {
+        $protocol = '';
+        switch ($params['type']) {
+            case 'email':
+                $protocol = 'mailto:';
+                break;
+            case 'phone':
+                $protocol = 'tel:';
+                $params['link'] = preg_replace('/[^+0-9]/', '', $params['link']);
+                break;
+            default: $protocol = '';
+        }
+        $link = $protocol . $params['link'];
+        $text = $params['text'];
+        return "<a href=\"$link\">$text</a>";
+    } else return '';
 }
 
 function _si_assets_path($path) {
