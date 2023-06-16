@@ -7,7 +7,7 @@
 <main class="main-content">
     <h1 class="sr-only">Страница категорий блога на сайте спорт-клуба SportIsland</h1>
     <div class="wrapper">
-        <?php get_template_part('templates/breadcrumbs.php') // вставляет верстку из отдельного файла ?>
+        <?php get_template_part('templates/breadcrumbs') // вставляет верстку из отдельного файла ?>
     </div>
 
         <?php
@@ -41,36 +41,39 @@
 
         <?php else: 
 
-            get_template_part('templates/no-posts.php'); 
+                get_template_part('templates/no-posts'); 
 
             endif; 
-        ?>
+        
+        $cats = get_categories();
 
-    <section class="categories">
-        <div class="wrapper">
-            <h2 class="categories__h main-heading"> Категории </h2>
-            <ul class="categories-list">
-                <li class="category">
-                    <a href="category.html" class="category__link">
-                        <img src="img/blog__category_thmb1.jpg" alt="" class="category__thumb">
-                        <span class="category__name">Груповые занятия</span>
-                    </a>
-                </li>
-                <li class="category">
-                    <a href="category.html" class="category__link">
-                        <img src="img/blog__category_thmb2.jpg" alt="" class="category__thumb">
-                        <span class="category__name">Кардио</span>
-                    </a>
-                </li>
-                <li class="category">
-                    <a href="category.html" class="category__link">
-                        <img src="img/blog__category_thmb3.jpg" alt="" class="category__thumb">
-                        <span class="category__name">Йога</span>
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </section>
+        if ($cats):
+        ?>
+          
+        <section class="categories">
+            <div class="wrapper">
+                <h2 class="categories__h main-heading"> Категории </h2>
+                <ul class="categories-list">
+                <?php
+                    foreach($cats as $cat):
+                        $cat_link = get_category_link($cat->cat_ID);
+                ?>
+                        <li class="category">
+                            <a href="<?= $cat_link ?>" class="category__link">
+                                <img src="<?= _si_assets_path('img/blog__category_thmb1.jpg')?>" alt="" class="category__thumb">
+                                <span class="category__name"><?= $cat->name; ?></span>
+                            </a>
+                        </li>
+                <?php
+                    endforeach;
+                ?>
+                
+                </ul>
+            </div>
+        </section>
+
+        <?php endif; ?>
+
 </main>
 
     <?php else: ?>
@@ -78,7 +81,7 @@
 <main class="main-content">
     <h1 class="sr-only">Страница на сайте спорт-клуба SportIsland</h1>
     <div class="wrapper">
-        <?php get_template_part('templates/breadcrumbs.php') ?>
+        <?php get_template_part('templates/breadcrumbs') ?>
     </div>
 
         <?php
@@ -113,7 +116,7 @@
 
         <?php else:
 
-            get_template_part('templates/no-posts.php');
+            get_template_part('templates/no-posts');
 
             endif; 
         ?>
