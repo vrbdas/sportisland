@@ -11,7 +11,7 @@
         ?>
       <article class="main-article wrapper">
         <header class="main-article__header">
-          <?php //the_post_thumbnail('full', ['class' => 'main-article__thumb']); ?>
+          <?php the_post_thumbnail('full', ['class' => 'main-article__thumb']); ?>
           <h1 class="main-article__h"><?php the_title(); ?></h1>
         </header>
         <?php the_content(); ?>
@@ -29,7 +29,12 @@
 	C52.216,18.553,51.97,16.611,51.911,16.242z" />
             </svg>
             <span class="like__text">Нравится </span>
-            <span class="like__count">46</span>
+            <span class="like__count">
+              <?php
+                $likes = get_post_meta($id, 'si-like', true);
+                echo $likes ? $likes : 0;
+              ?>
+            </span>
           </a>
         </footer>
       </article>
