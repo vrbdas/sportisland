@@ -57,10 +57,12 @@
                 <?php
                     foreach($cats as $cat):
                         $cat_link = get_category_link($cat->cat_ID);
+                        $img = get_field('cat_thumb', 'category_' . $cat->cat_ID)['url'];
+                        $alt = get_field('cat_thumb', 'category_' . $cat->cat_ID)['alt'];
                 ?>
                         <li class="category">
                             <a href="<?= $cat_link ?>" class="category__link">
-                                <img src="<?= _si_assets_path('img/blog__category_thmb1.jpg')?>" alt="" class="category__thumb">
+                                <img src="<?= $img ?>" alt="<?= $alt ?>" class="category__thumb">
                                 <span class="category__name"><?= $cat->name; ?></span>
                             </a>
                         </li>
