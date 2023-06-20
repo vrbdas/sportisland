@@ -82,6 +82,12 @@ function si_register() {
         'before_widget' => null,
         'after_widget' => null,
     ]);
+    register_sidebar([
+        'name'          => 'Главная страница',
+		'id'            => 'si-main-page',
+        'before_widget' => null,
+        'after_widget' => null,
+    ]);
     register_widget('si_widget_text');
     register_widget('si_widget_contacts');
     register_widget('si_widget_social');
@@ -273,6 +279,7 @@ function si_save_like_meta($post_id) {
         update_post_meta($post_id, 'si-like', $_POST['si-like']);
     }
 }
+
 
 function _si_assets_path($path) {
     return get_template_directory_uri() . '/assets/' . $path;
