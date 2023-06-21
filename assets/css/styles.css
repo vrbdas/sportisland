@@ -627,7 +627,13 @@ a {
     background-size: 15px;
     background-position: left center;
     background-repeat: no-repeat;
-    position: relative
+    position: relative;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    font-size: 16px;
+    font-family: Montserrat, 'Open Sans', Arial, sans-serif;
+    box-shadow: none;
 }
 
 .like svg {
@@ -640,24 +646,18 @@ a {
     -moz-transform: translateY(-50%);
     -ms-transform: translateY(-50%);
     -o-transform: translateY(-50%);
-    transform: translateY(-50%)
+    transform: translateY(-50%);
 }
 
 .like path {
     fill: #666
 }
 
-.like.like_liked,
-.like:active,
-.like:focus,
-.like:hover {
+.like.like_liked {
     color: #fff
 }
 
-.like.like_liked path,
-.like:active path,
-.like:focus path,
-.like:hover path {
+.like.like_liked path {
     fill: #fff
 }
 
@@ -2004,6 +2004,71 @@ a {
     margin-bottom: 30px
 }
 
+/* .contacts-form__label {
+    width: -webkit-calc(33.33333% - 20px);
+    width: -moz-calc(33.33333% - 20px);
+    width: calc(33.33333% - 20px)
+}
+
+.contacts-form__label_textarea {
+    width: 100%
+}
+
+.contacts-form__input,
+.contacts-form__textarea {
+    border: none;
+    display: block;
+    font: inherit;
+    width: 100%;
+    background-color: #1f2021;
+    color: #ccc;
+    margin-bottom: 30px;
+    word-break: break-all;
+    padding: 20px 30px
+}
+
+.contacts-form__input::-webkit-input-placeholder,
+.contacts-form__textarea::-webkit-input-placeholder {
+    color: #ccc;
+    font-size: 16px
+}
+
+.contacts-form__input::-moz-placeholder,
+.contacts-form__textarea::-moz-placeholder {
+    color: #ccc;
+    font-size: 16px
+}
+
+.contacts-form__input:-ms-input-placeholder,
+.contacts-form__textarea:-ms-input-placeholder {
+    color: #ccc;
+    font-size: 16px
+}
+
+.contacts-form__input::-ms-input-placeholder,
+.contacts-form__textarea::-ms-input-placeholder {
+    color: #ccc;
+    font-size: 16px
+}
+
+.contacts-form__input::placeholder,
+.contacts-form__textarea::placeholder {
+    color: #ccc;
+    font-size: 16px
+}
+
+.contacts-form__textarea {
+    resize: none
+}
+
+.contacts-form__btn {
+    margin-left: auto
+}
+
+.contacts-form br {
+    display: none
+} */
+
 .contacts-form__label {
     width: -webkit-calc(33.33333% - 20px);
     width: -moz-calc(33.33333% - 20px);
@@ -2067,6 +2132,16 @@ a {
 
 .contacts-form br {
     display: none
+}
+
+.contacts-form .wpcf7-not-valid-tip {
+    position: relative;
+    top: -8px;
+    height: 12px;
+    margin-top: -12px;
+    overflow: hidden;
+    line-height: 1;
+    font-size: 12px
 }
 
 .prices {
