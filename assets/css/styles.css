@@ -2004,71 +2004,6 @@ a {
     margin-bottom: 30px
 }
 
-/* .contacts-form__label {
-    width: -webkit-calc(33.33333% - 20px);
-    width: -moz-calc(33.33333% - 20px);
-    width: calc(33.33333% - 20px)
-}
-
-.contacts-form__label_textarea {
-    width: 100%
-}
-
-.contacts-form__input,
-.contacts-form__textarea {
-    border: none;
-    display: block;
-    font: inherit;
-    width: 100%;
-    background-color: #1f2021;
-    color: #ccc;
-    margin-bottom: 30px;
-    word-break: break-all;
-    padding: 20px 30px
-}
-
-.contacts-form__input::-webkit-input-placeholder,
-.contacts-form__textarea::-webkit-input-placeholder {
-    color: #ccc;
-    font-size: 16px
-}
-
-.contacts-form__input::-moz-placeholder,
-.contacts-form__textarea::-moz-placeholder {
-    color: #ccc;
-    font-size: 16px
-}
-
-.contacts-form__input:-ms-input-placeholder,
-.contacts-form__textarea:-ms-input-placeholder {
-    color: #ccc;
-    font-size: 16px
-}
-
-.contacts-form__input::-ms-input-placeholder,
-.contacts-form__textarea::-ms-input-placeholder {
-    color: #ccc;
-    font-size: 16px
-}
-
-.contacts-form__input::placeholder,
-.contacts-form__textarea::placeholder {
-    color: #ccc;
-    font-size: 16px
-}
-
-.contacts-form__textarea {
-    resize: none
-}
-
-.contacts-form__btn {
-    margin-left: auto
-}
-
-.contacts-form br {
-    display: none
-} */
-
 .contacts-form__label {
     width: -webkit-calc(33.33333% - 20px);
     width: -moz-calc(33.33333% - 20px);
@@ -2124,10 +2059,6 @@ a {
 
 .contacts-form__textarea {
     resize: none
-}
-
-.contacts-form__btn {
-    margin-left: auto
 }
 
 .contacts-form br {
