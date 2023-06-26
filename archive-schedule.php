@@ -4,146 +4,78 @@
 
     <main class="main-content">
       <div class="wrapper">
-        <ul class="breadcrumbs">
-          <li class="breadcrumbs__item breadcrumbs__item_home">
-            <a href="index.html" class="breadcrumbs__link">Главная</a>
-          </li>
-          <li class="breadcrumbs__item">
-            <a href="schedule.html" class="breadcrumbs__link">Расписание</a>
-          </li>
-        </ul>
+        <?php get_template_part('templates/breadcrumbs') ?>
         <h1 class="main-heading schedule-page__h">расписание</h1>
         <div class="tabs">
           <ul class="tabs-btns">
-            <li class="tabs-btns__item active-tab">
-              <a href="#mon" class="tabs-btns__btn"> Пн </a>
+            <?php
+              $days = get_terms([ // создает массив с элементами таксономии schedule_days (пн, вт и т.д.), каждый элемент в этом массиве - объект
+                'taxonomy' => 'schedule_days',
+                'order' => 'ASC',
+                'orderby' => 'slug',
+              ]);
+              $index = 0;
+              foreach ($days as $day):
+                if ($index === 0) {
+                  $active_class = ' active-tab';
+                } else {
+                  $active_class = '';
+                }
+            ?>
+            <li class="tabs-btns__item<?= $active_class; ?>">
+              <a href="#<?= $day->slug; ?>" class="tabs-btns__btn"> <?= $day->name; ?> </a>
             </li>
-            <li class="tabs-btns__item">
-              <a href="#tue" class="tabs-btns__btn"> Вт </a>
-            </li>
-            <li class="tabs-btns__item">
-              <a href="#wed" class="tabs-btns__btn"> Ср </a>
-            </li>
-            <li class="tabs-btns__item">
-              <a href="#thur" class="tabs-btns__btn"> Чт </a>
-            </li>
-            <li class="tabs-btns__item">
-              <a href="#fri" class="tabs-btns__btn"> Пт </a>
-            </li>
-            <li class="tabs-btns__item">
-              <a href="#sat" class="tabs-btns__btn"> Сб </a>
-            </li>
-            <li class="tabs-btns__item">
-              <a href="#sun" class="tabs-btns__btn"> Вс </a>
-            </li>
+            <?php
+              $index++;
+              endforeach;
+            ?>
           </ul>
-          <ul class="tabs-content">
-            <li class="tabs-content__item active-tab" id="mon">
-              <h2 class="sr-only"> Понедельник </h2>
+          <ul class="tabs-content">  
+          <?php
+            $index = 0;
+            foreach ($days as $day):
+              if ($index === 0) {
+                $active_class = ' active-tab';
+              } else {
+                $active_class = '';
+              }
+          ?>
+            <li class="tabs-content__item<?= $active_class; ?>" id="<?= $day->slug; ?>">
               <ul class="schedule tabs-content__list">
+                <?php
+                  $actions = new WP_Query([
+                    'posts_per_page' => -1, // сколько вывести (все)
+                    'post_type' => 'schedule', // название типа кастомных постов
+                    'schedule_days' => $day->slug, // сортировать по значению таксономии, например 01monday
+                    'meta_key' => 'schedule_time_start', // сортировать по  значению ACF
+                    'orderby' => 'meta_value_num',
+                    'order' => 'ASC',
+                  ]);
+                  // echo '<pre>'.print_r($actions->posts, 1).'</pre>';
+                  if ($actions->have_posts()):
+                    while($actions->have_posts()):
+                      $actions->the_post(); // устанавливает глобальные переменные на работу с конкретным постом
+                      $trainer = esc_html(get_the_title(get_field('schedule_trainer'))); // get_field поллучает id тренера, get_the_title получает заголовок записи с этим id
+                      $place = get_the_terms($id, 'places')[0];
+                      $color = get_field('place_color', 'places_' . $place->term_id);
+                ?>
                 <li class="schedule__item">
-                  <p class="schedule__time"> 07:00 - 22:00 </p>
-                  <h2 class="schedule__h"> Фитнесс </h2>
-                  <p class="schedule__trainer"> с Литвиненко Ольгой </p>
-                  <p class="schedule__place"> фитнесс зал </p>
+                  <p class="schedule__time"> <?php the_field('schedule_time_start'); ?> &ndash; <?php the_field('schedule_time_end'); ?> </p>
+                  <h2 class="schedule__h"> <?php the_field('schedule_name'); ?> </h2>
+                  <p class="schedule__trainer"> <?php echo $trainer; ?> </p>
+                  <p class="schedule__place" style="color: <?php echo $color; ?>;"> <?php echo $place->name; ?> </p>
                 </li>
-                <li class="schedule__item">
-                  <p class="schedule__time"> 07:00 - 22:00 </p>
-                  <h2 class="schedule__h"> Фитнесс </h2>
-                  <p class="schedule__trainer"> с Литвиненко Ольгой </p>
-                  <p class="schedule__place"> фитнесс зал </p>
-                </li>
-                <li class="schedule__item">
-                  <p class="schedule__time"> 07:00 - 22:00 </p>
-                  <h2 class="schedule__h"> Фитнесс </h2>
-                  <p class="schedule__trainer"> с Литвиненко Ольгой </p>
-                  <p class="schedule__place"> фитнесс зал </p>
-                </li>
-                <li class="schedule__item">
-                  <p class="schedule__time"> 07:00 - 22:00 </p>
-                  <h2 class="schedule__h"> Фитнесс </h2>
-                  <p class="schedule__trainer"> с Литвиненко Ольгой </p>
-                  <p class="schedule__place"> фитнесс зал </p>
-                </li>
-                <li class="schedule__item">
-                  <p class="schedule__time"> 07:00 - 22:00 </p>
-                  <h2 class="schedule__h"> Фитнесс </h2>
-                  <p class="schedule__trainer"> с Литвиненко Ольгой </p>
-                  <p class="schedule__place"> фитнесс зал </p>
-                </li>
-                <li class="schedule__item">
-                  <p class="schedule__time"> 07:00 - 22:00 </p>
-                  <h2 class="schedule__h"> Фитнесс </h2>
-                  <p class="schedule__trainer"> с Литвиненко Ольгой </p>
-                  <p class="schedule__place"> фитнесс зал </p>
-                </li>
-                <li class="schedule__item">
-                  <p class="schedule__time"> 07:00 - 22:00 </p>
-                  <h2 class="schedule__h"> Фитнесс </h2>
-                  <p class="schedule__trainer"> с Литвиненко Ольгой </p>
-                  <p class="schedule__place"> фитнесс зал </p>
-                </li>
-                <li class="schedule__item">
-                  <p class="schedule__time"> 07:00 - 22:00 </p>
-                  <h2 class="schedule__h"> Фитнесс </h2>
-                  <p class="schedule__trainer"> с Литвиненко Ольгой </p>
-                  <p class="schedule__place"> фитнесс зал </p>
-                </li>
+                <?php
+                    endwhile;
+                  wp_reset_postdata();
+                  endif;
+                ?>
               </ul>
             </li>
-            <li class="tabs-content__item" id="tue">
-              <h2 class="sr-only"> Вторник </h2>
-              <ul class="schedule tabs-content__list">
-                <li class="schedule__item">
-                  <p class="schedule__time"> 10:00 - 22:00 </p>
-                  <h2 class="schedule__h"> Фитнесс ВТОРНИК </h2>
-                  <p class="schedule__trainer"> с Литвиненко Ольгой </p>
-                  <p class="schedule__place"> фитнесс зал </p>
-                </li>
-                <li class="schedule__item">
-                  <p class="schedule__time"> 07:00 - 22:00 </p>
-                  <h2 class="schedule__h"> Фитнесс </h2>
-                  <p class="schedule__trainer"> с Литвиненко Ольгой </p>
-                  <p class="schedule__place"> фитнесс зал </p>
-                </li>
-                <li class="schedule__item">
-                  <p class="schedule__time"> 07:00 - 22:00 </p>
-                  <h2 class="schedule__h"> Фитнесс </h2>
-                  <p class="schedule__trainer"> с Литвиненко Ольгой </p>
-                  <p class="schedule__place"> фитнесс зал </p>
-                </li>
-                <li class="schedule__item">
-                  <p class="schedule__time"> 07:00 - 22:00 </p>
-                  <h2 class="schedule__h"> Фитнесс </h2>
-                  <p class="schedule__trainer"> с Литвиненко Ольгой </p>
-                  <p class="schedule__place"> фитнесс зал </p>
-                </li>
-                <li class="schedule__item">
-                  <p class="schedule__time"> 07:00 - 22:00 </p>
-                  <h2 class="schedule__h"> Фитнесс </h2>
-                  <p class="schedule__trainer"> с Литвиненко Ольгой </p>
-                  <p class="schedule__place"> фитнесс зал </p>
-                </li>
-                <li class="schedule__item">
-                  <p class="schedule__time"> 07:00 - 22:00 </p>
-                  <h2 class="schedule__h"> Фитнесс </h2>
-                  <p class="schedule__trainer"> с Литвиненко Ольгой </p>
-                  <p class="schedule__place"> фитнесс зал </p>
-                </li>
-                <li class="schedule__item">
-                  <p class="schedule__time"> 07:00 - 22:00 </p>
-                  <h2 class="schedule__h"> Фитнесс </h2>
-                  <p class="schedule__trainer"> с Литвиненко Ольгой </p>
-                  <p class="schedule__place"> фитнесс зал </p>
-                </li>
-                <li class="schedule__item">
-                  <p class="schedule__time"> 07:00 - 22:00 </p>
-                  <h2 class="schedule__h"> Фитнесс </h2>
-                  <p class="schedule__trainer"> с Литвиненко Ольгой </p>
-                  <p class="schedule__place"> фитнесс зал </p>
-                </li>
-              </ul>
-            </li>
+          <?php
+            $index++;
+            endforeach;
+          ?>
           </ul>
         </div>
       </div>
