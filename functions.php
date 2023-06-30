@@ -89,12 +89,6 @@ function si_register() {
         'before_widget' => null,
         'after_widget' => null,
     ]);
-    register_sidebar([
-        'name'          => 'Главная страница',
-		'id'            => 'si-main-page',
-        'before_widget' => null,
-        'after_widget' => null,
-    ]);
     register_widget('si_widget_text');
     register_widget('si_widget_contacts');
     register_widget('si_widget_social');
@@ -314,12 +308,12 @@ function si_meta_boxes() {
         );
     }
 }
-// function si_meta_like_cb ($post_obj) {
-//     $likes = get_post_meta($post_obj->ID, 'si-like', true);
-//     $likes = $likes ? $likes : 0;
-//     // echo "<input type='text' name='si-like' value='{$likes}'>";
-//     echo "<p>{$likes}</p>";
-// }
+function si_meta_like_cb ($post_obj) {
+    $likes = get_post_meta($post_obj->ID, 'si-like', true);
+    $likes = $likes ? $likes : 0;
+    // echo "<input type='text' name='si-like' value='{$likes}'>";
+    echo "<p>{$likes}</p>";
+}
 
 function si_order_fields_cb($post_obj, $slug) {
     $slug = $slug['args'];
